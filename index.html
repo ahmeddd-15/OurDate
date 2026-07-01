@@ -1,0 +1,96 @@
+ ض<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Date ❤️</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="glow"></div>
+    <div class="heart heart1"></div>
+    <div class="heart heart2"></div>
+    <div class="heart heart3"></div>
+    <div class="heart heart4"></div>
+    <div class="heart heart5"></div>
+    <div class="heart heart6"></div>
+    <div class="heart heart7"></div>
+    <div class="heart heart8"></div>
+  </div>
+
+  <div class="page">
+    <header class="hero">
+      <div class="title-group">
+        <p class="subtitle">Our romantic date plan</p>
+        <h1>Ahmed <span>❤️</span> Aya</h1>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card steps-card">
+        <div class="step step-active" data-step="1">
+          <span class="step-badge">Step 1</span>
+          <h2>Choose the date</h2>
+          <p>Select the special day from the calendar.</p>
+          <input id="dateInput" type="date" aria-label="Choose date" />
+          <button id="dateNext" class="btn btn-primary" type="button" disabled>Next</button>
+        </div>
+
+        <div class="step" data-step="2">
+          <span class="step-badge">Step 2</span>
+          <h2>Choose the food</h2>
+          <p>Pick our favorite dinner together.</p>
+          <div class="choice-grid">
+            <button type="button" class="choice-button" data-value="Pizza 🍕">Pizza 🍕</button>
+            <button type="button" class="choice-button" data-value="Sushi 🍣">Sushi 🍣</button>
+            <button type="button" class="choice-button" data-value="Burger 🍔">Burger 🍔</button>
+            <button type="button" class="choice-button" data-value="Pasta 🍝">Pasta 🍝</button>
+          </div>
+        </div>
+
+        <div class="step" data-step="3">
+          <span class="step-badge">Step 3</span>
+          <h2>Choose the place</h2>
+          <p>Where should our date feel most magical?</p>
+          <div class="choice-grid">
+            <button type="button" class="choice-button" data-value="Cinema 🎬">Cinema 🎬</button>
+            <button type="button" class="choice-button" data-value="Restaurant 🍽️">Restaurant 🍽️</button>
+            <button type="button" class="choice-button" data-value="Home 🏠">Home 🏠</button>
+            <button type="button" class="choice-button" data-value="Beach 🌊">Beach 🌊</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card summary-card hidden" id="summaryCard">
+        <div class="summary-header">Our Romantic Plan</div>
+        <div class="summary-list">
+          <div class="summary-item">
+            <span class="summary-label">Date</span>
+            <strong id="summaryDate">-</strong>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Food</span>
+            <strong id="summaryFood">-</strong>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Place</span>
+            <strong id="summaryPlace">-</strong>
+          </div>
+        </div>
+        <p class="final-message">I can’t wait to see you ❤️</p>
+        <img id="imgPreview" class="result-image" alt="Couple photo preview" />
+      </section>
+    </main>
+
+    <footer class="footer">
+      <label class="upload-label">
+        Add a couple photo
+        <input id="photoInput" type="file" accept="image/*" />
+      </label>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
