@@ -32,8 +32,8 @@
         <div class="step step-active" data-step="1">
           <span class="step-badge">Step 1</span>
           <h2>Choose the date</h2>
-          <p>Select the special day from the calendar.</p>
-          <input id="dateInput" type="date" aria-label="Choose date" />
+          <p>Select the day that feels perfect.</p>
+          <div class="date-grid" id="dateGrid"></div>
           <button id="dateNext" class="btn btn-primary" type="button" disabled>Next</button>
         </div>
 
@@ -79,16 +79,10 @@
           </div>
         </div>
         <p class="final-message">I can’t wait to see you ❤️</p>
-        <img id="imgPreview" class="result-image" alt="Couple photo preview" />
       </section>
     </main>
 
-    <footer class="footer">
-      <label class="upload-label">
-        Add a couple photo
-        <input id="photoInput" type="file" accept="image/*" />
-      </label>
-    </footer>
+    <footer class="footer"></footer>
   </div>
 
   <script src="script.js"></script>

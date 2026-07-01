@@ -1,11 +1,9 @@
-const dateInput = document.getElementById('dateInput');
+const dateGrid = document.getElementById('dateGrid');
 const dateNext = document.getElementById('dateNext');
-const photoInput = document.getElementById('photoInput');
 const summaryCard = document.getElementById('summaryCard');
 const summaryDate = document.getElementById('summaryDate');
 const summaryFood = document.getElementById('summaryFood');
 const summaryPlace = document.getElementById('summaryPlace');
-const summaryImage = document.getElementById('imgPreview');
 const steps = Array.from(document.querySelectorAll('.step'));
 const foodButtons = Array.from(document.querySelectorAll('.step[data-step="2"] .choice-button'));
 const placeButtons = Array.from(document.querySelectorAll('.step[data-step="3"] .choice-button'));
@@ -14,12 +12,27 @@ let chosenDate = '';
 let chosenFood = '';
 let chosenPlace = '';
 
-function setMinimumDate() {
+function getDayLabel(date) {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+function buildDateOptions() {
   const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  dateInput.min = `${year}-${month}-${day}`;
+  for (let offset = 1; offset <= 10; offset += 1) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + offset);
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'date-card';
+    card.dataset.value = date.toISOString().split('T')[0];
+    card.innerHTML = `<span>${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short' })}</span><strong>${date.getDate()}</strong>`;
+    card.addEventListener('click', () => selectDateOption(card, date));
+    dateGrid.appendChild(card);
+  }
 }
 
 function activateStep(stepIndex) {
@@ -50,43 +63,26 @@ function selectChoice(buttons, selectedButton) {
   });
 }
 
+function selectDateOption(card, date) {
+  chosenDate = date.toISOString().split('T')[0];
+  dateGrid.querySelectorAll('.date-card').forEach((item) => {
+    item.classList.toggle('selected', item === card);
+  });
+  dateNext.disabled = false;
+}
+
 function showSummary() {
   activateStep(0);
   summaryCard.classList.remove('hidden');
   updateSummary();
-
-  if (photoInput.files?.[0]) {
-    handleImageUpload({ target: photoInput });
-  }
-}
-
-function handleImageUpload(event) {
-  const file = event.target.files?.[0] || photoInput.files?.[0];
-  if (!file) {
-    summaryImage.style.display = 'none';
-    summaryImage.src = '';
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    summaryImage.src = e.target.result;
-    summaryImage.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  setMinimumDate();
-});
-
-dateInput.addEventListener('input', () => {
-  dateNext.disabled = !dateInput.value;
+  buildDateOptions();
 });
 
 dateNext.addEventListener('click', () => {
-  if (!dateInput.value) return;
-  chosenDate = dateInput.value;
+  if (!chosenDate) return;
   activateStep(2);
 });
 
@@ -106,4 +102,3 @@ placeButtons.forEach((button) => {
   });
 });
 
-photoInput.addEventListener('change', handleImageUpload);

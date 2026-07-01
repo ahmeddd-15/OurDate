@@ -90,7 +90,7 @@ body {
 .page {
   position: relative;
   min-height: 100vh;
-  padding: 1.5rem;
+  padding: 1.5rem 1.25rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,12 +103,13 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1.2rem 1.4rem;
-  margin-bottom: 1rem;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
   border-radius: 48px;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: var(--shadow);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 229, 236, 0.92));
+  box-shadow: 0 38px 90px rgba(173, 61, 106, 0.16);
   backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 168, 197, 0.4);
 }
 
 .title-group {
@@ -151,11 +152,13 @@ body {
 
 .steps-card {
   overflow: hidden;
+  border: 1px solid rgba(255, 120, 165, 0.15);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .step {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(22px);
   max-height: 0;
   pointer-events: none;
   transition: opacity 0.45s ease, transform 0.45s ease, max-height 0.45s ease;
@@ -189,27 +192,115 @@ body {
   line-height: 1.75;
 }
 
-#dateInput {
-  width: 100%;
-  max-width: 320px;
-  height: 56px;
-  border-radius: 22px;
-  border: 1px solid rgba(137, 62, 92, 0.15);
-  padding: 0 1rem;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.95);
-  outline: none;
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-#dateInput:focus {
-  border-color: #ff8bb8;
-  box-shadow: 0 0 0 4px rgba(255, 153, 184, 0.16);
+.date-card {
+  border-radius: 32px;
+  padding: 1.4rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 115, 150, 0.22);
+  box-shadow: 0 28px 60px rgba(255, 101, 146, 0.12);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  text-align: left;
+}
+
+.date-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 105, 155, 0.45);
+  box-shadow: 0 32px 70px rgba(255, 104, 151, 0.18);
+}
+
+.date-card.selected {
+  background: linear-gradient(145deg, #ffe4ef 0%, #ffc5dc 100%);
+  border-color: transparent;
+  box-shadow: 0 28px 70px rgba(255, 107, 154, 0.26);
+}
+
+.date-card::after {
+  content: '✓';
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+  background: #ff6d97;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.date-card.selected::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.date-card span {
+  display: block;
+  font-size: 0.95rem;
+  color: #a85381;
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.date-card strong {
+  display: block;
+  font-size: 1.4rem;
+  color: var(--text);
+  font-weight: 900;
+  line-height: 1;
 }
 
 .choice-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.step-badge {
+  background: rgba(255, 162, 191, 0.2);
+  color: #c73f6d;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,209,227,0.55));
+  border: 1px solid rgba(255, 183, 209, 0.35);
+}
+
+.summary-card {
+  position: relative;
+  padding-top: 2rem;
+  border: 1px solid rgba(255, 131, 166, 0.16);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.summary-card::before {
+  content: '💌';
+  display: inline-block;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.summary-card::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1rem;
+  width: 120px;
+  height: 120px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 181, 202, 0.4), transparent 55%);
+  pointer-events: none;
 }
 
 .choice-button {
@@ -318,42 +409,11 @@ body {
   font-weight: 700;
 }
 
-.result-image {
-  width: 100%;
-  max-width: 320px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(145, 55, 97, 0.16);
-  margin: 1.5rem auto 0;
-  display: none;
-}
-
 .footer {
   width: min(1120px, 100%);
   padding: 1rem 1.4rem;
   display: flex;
   justify-content: center;
-}
-
-.upload-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 320px;
-  padding: 0.95rem 1rem;
-  border-radius: 999px;
-  border: 1px dashed rgba(255, 96, 144, 0.35);
-  background: rgba(255, 255, 255, 0.72);
-  color: #8f436e;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.upload-label input {
-  display: none;
 }
 
 @media (max-width: 860px) {
@@ -362,6 +422,9 @@ body {
     align-items: flex-start;
   }
 
+  .date-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
@@ -377,5 +440,24 @@ body {
 
   .choice-grid {
     grid-template-columns: 1fr;
+  }
+
+  .date-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding: 1rem 1rem;
+  }
+
+  .step p {
+    font-size: 0.98rem;
   }
 }
